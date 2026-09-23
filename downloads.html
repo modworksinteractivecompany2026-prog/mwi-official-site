@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MWi • Downloads</title>
+    <link rel="stylesheet" href="../../assets/css/style.css?v=7">
+    <style>
+        .package-box{background:rgba(15,15,15,.9);border:1px solid var(--mw-neon-mid);border-radius:14px;padding:16px;margin-top:18px;box-shadow:0 0 12px var(--mw-neon-soft);text-align:left}
+        .package-title{font-size:18px;color:var(--mw-neon);margin-bottom:12px;text-align:center}
+        .package-desc{font-size:14px;opacity:1;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(79,216,255,.12)}
+        .package-desc:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+        .download-btn,.vip-btn{padding:10px 20px;border-radius:8px;display:inline-block;margin-top:8px;transition:.25s;text-decoration:none;cursor:pointer}
+        .download-btn{border:1px solid var(--mw-neon);background:transparent;color:var(--mw-neon-light)}
+        .download-btn:hover{background:var(--mw-neon-soft);transform:scale(1.05)}
+        .vip-btn{border:1px solid #ff6666;background:rgba(255,50,50,.12);color:#ff9b9b}
+        .vip-btn:hover{background:rgba(255,50,50,.22);transform:scale(1.03)}
+        .status{font-size:13px;margin-top:6px;font-weight:600}
+        .stable{color:#65ffc1}.beta{color:#ffe27a}.alpha{color:#6fdcff}.free{color:#65ffc1}.building{color:#ffb070}
+        .version-note{margin-top:7px;color:#bfefff;font-size:13px;line-height:1.6}
+        .vip-modal{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;justify-content:center;align-items:center;z-index:9999;padding:20px}
+        .vip-modal-content{background:#111;border:1px solid var(--mw-neon-mid);border-radius:12px;padding:22px;width:min(390px,92vw);text-align:center;box-shadow:0 0 14px var(--mw-neon-soft)}
+        .vip-modal-content h3{color:var(--mw-neon);margin-bottom:12px}.vip-modal-content p{color:#ccc;margin-bottom:18px;line-height:1.6}
+        .vip-close{padding:8px 16px;border-radius:8px;border:1px solid var(--mw-neon);background:transparent;color:var(--mw-neon);cursor:pointer}
+        .vip-close:hover{background:var(--mw-neon-soft)}
+        .usage-box{background:rgba(10,10,10,.7);border:1px solid var(--mw-neon-soft);border-radius:12px;padding:16px;margin-top:26px;font-size:14px;line-height:1.6;text-align:left}
+        .note-soft{font-size:12px;opacity:.85;margin-top:6px;color:#9ad}
+        html[dir="rtl"] .package-box,html[dir="rtl"] .usage-box,html[dir="rtl"] .package-desc{text-align:right}
+    </style>
+</head>
+<body data-mwi-page="downloads.html">
+
+<div id="vipModal" class="vip-modal" aria-hidden="true">
+  <div class="vip-modal-content">
+    <h3 id="vipTitle">VIP Access Required</h3>
+    <p id="vipText">This service is available for MWi VIP members only. Global wallet payment will be enabled soon.</p>
+    <button class="vip-close" onclick="closeVIP()" id="vipClose">Close</button>
+  </div>
+</div>
+
+<script>
+function showVIP(){const m=document.getElementById("vipModal");m.style.display="flex";m.setAttribute("aria-hidden","false")}
+function closeVIP(){const m=document.getElementById("vipModal");m.style.display="none";m.setAttribute("aria-hidden","true")}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeVIP()});
+</script>
+
+<div class="center-box">
+<div class="frame3d">
+
+<div class="language-selector" id="languageSelector">
+<button class="language-button" id="languageButton" type="button" aria-haspopup="listbox" aria-expanded="false">
+<span class="language-current"><span class="language-flag" id="languageFlag">🇬🇧</span><span class="language-name" id="languageName">English — Global</span></span>
+<span class="language-arrow" aria-hidden="true">▼</span>
+</button>
+<div class="language-menu" id="languageMenu" role="listbox" aria-label="Language">
+<button class="language-option active" type="button" data-lang="en" role="option">🇬🇧 <span>English — Global</span></button>
+<button class="language-option" type="button" data-lang="fa" role="option">🇮🇷 <span>فارسی</span></button>
+<button class="language-option" type="button" data-lang="pt" role="option">🇵🇹 <span>Português</span></button>
+<button class="language-option" type="button" data-lang="es" role="option">🇪🇸 <span>Español</span></button>
+<button class="language-option" type="button" data-lang="zh" role="option">🇨🇳 <span>中文</span></button>
+<button class="language-option" type="button" data-lang="ja" role="option">🇯🇵 <span>日本語</span></button>
+<button class="language-option" type="button" data-lang="ru" role="option">🇷🇺 <span>Русский</span></button>
+<button class="language-option" type="button" data-lang="ko" role="option">🇰🇷 <span>한국어</span></button>
+<button class="language-option" type="button" data-lang="de" role="option">🇩🇪 <span>Deutsch</span></button>
+<button class="language-option" type="button" data-lang="it" role="option">🇮🇹 <span>Italiano</span></button>
+<button class="language-option" type="button" data-lang="mx" role="option">🇲🇽 <span>Español — México</span></button>
+<button class="language-option" type="button" data-lang="fr" role="option">🇫🇷 <span>Français</span></button>
+<button class="language-option" type="button" data-lang="ar" role="option">🇦🇷 <span>Español — Argentina</span></button>
+<button class="language-option" type="button" data-lang="ca" role="option">🇨🇦 <span>English — Canada</span></button>
+</div></div>
+
+<img src="../../assets/images/downloads.webp" class="frame-logo" alt="Downloads">
+<div class="title" id="downloadsTitle">MDR Downloads</div>
+<div class="desc" id="downloadsDesc">Official MDR releases for Unity 6 and Unity 2022.</div>
+
+<div class="package-box">
+<div class="package-title" id="titleUnity6">Unity 6 — Free Releases</div>
+
+<div class="package-desc" data-pkg="u6v1">
+<strong>MWi_MDR_Unity6_2026.v1</strong>
+<div class="status alpha" data-status-key="alpha_status">Status: Alpha (Free)</div>
+<div class="version-note" data-note-key="u6_test_note">Early alpha for simple code testing only. Please use newer versions.</div>
+<a class="download-btn" href="https://unity-6-v1.modworksinteractivecompany2026.workers.dev/" target="_blank" rel="noopener" data-download-slot="u6v1" data-action="download">Download</a>
+</div>
+
+<div class="package-desc" data-pkg="u6v11">
+<strong>MWi_MDR_Unity6_2026.v1.1</strong>
+<div class="status beta" data-status-key="beta_status">Status: Beta (Free)</div>
+<div class="version-note" data-note-key="u6_test_note">Early build for simple code testing only. Please use newer versions.</div>
+<a class="download-btn" href="https://unity-6-v1-1.modworksinteractivecompany2026.workers.dev/" target="_blank" rel="noopener" data-download-slot="u6v11" data-action="download">Download</a>
+</div>
+</div>
+
+<div class="package-box">
+<div class="package-title" id="titleUnity2022">Unity 2022 — Free Releases</div>
+
+<div class="package-desc" data-pkg="u22v1">
+<strong>MWi_MDR_Unity2022_2026.v1</strong>
+<div class="status alpha" data-status-key="alpha_status">Status: Alpha (Free)</div>
+<div class="version-note" data-note-key="u22_test_note">From v1 to v2, these builds are for initial testing and completing the structure. Please use newer versions.</div>
+<a class="download-btn" href="https://unity-2022-v1.modworksinteractivecompany2026.workers.dev/" target="_blank" rel="noopener" data-download-slot="u22v1" data-action="download">Download</a>
+</div>
+
+<div class="package-desc" data-pkg="u22v2">
+<strong>MWi_MDR_Unity2022_2026.v2</strong>
+<div class="status beta" data-status-key="beta_status">Status: Beta (Free)</div>
+<div class="version-note" data-note-key="u22_test_note">From v1 to v2, these builds are for initial testing and completing the structure. Please use newer versions.</div>
+<a class="download-btn" href="https://unity-2022-v2.modworksinteractivecompany2026.workers.dev/" target="_blank" rel="noopener" data-download-slot="u22v2" data-action="download">Download</a>
+</div>
+
+<div class="package-desc" data-pkg="v21">
+<strong>MWi_MDR_v2.1 — Unity 2022</strong>
+<div class="status beta" data-status-key="beta_status">Status: Beta (Free)</div>
+<div class="version-note" data-note-key="engine_special">MDR Engine — this release is specifically for the MDR Engine.</div>
+<a class="download-btn" href="https://mwi-mdr-v2-1-engine-unity-2022.modworksinteractivecompany2026.workers.dev/" target="_blank" rel="noopener" data-download-slot="v21" data-action="download">Download</a>
+</div>
+
+<div class="package-desc" data-pkg="v22">
+<strong>MWi_MDR_v2.2 — Unity 2022</strong>
+<div class="status beta" data-status-key="beta_status">Status: Beta (Free)</div>
+<div class="version-note" data-note-key="road_special">MDR Road — this release is specifically for MDR Road.</div>
+<a class="download-btn" href="https://mwi-mdr-v2-2-road-unity-2022.modworksinteractivecompany2026.workers.dev/" target="_blank" rel="noopener" data-download-slot="v22" data-action="download">Download</a>
+</div>
+</div>
+
+<div class="package-box">
+<div class="package-title" id="titleVip">VIP Releases</div>
+
+<div class="package-desc" data-pkg="v23">
+<strong>MWi_MDR_v2.3 — Unity 2022</strong>
+<div class="status stable" data-status-key="stable_vip">Status: Stable (VIP)</div>
+<div class="version-note" data-note-key="v23_note">Stable Unity 2022 release.</div>
+<a class="vip-btn" href="https://mwi-mdr-v-2-3-unity-2022.modworksinteractivecompany2026.workers.dev/" onclick="showVIP();return false;" data-action="vip">Locked — VIP Required</a>
+</div>
+
+<div class="package-desc" data-pkg="v24v1">
+<strong>MWi_MDR_v2.4-v1 — Unity 2022</strong>
+<div class="status beta" data-status-key="beta_vip">Status: Beta (VIP)</div>
+<div class="version-note" data-note-key="v24v1_note">Beta release for the integrated MDR structure.</div>
+<a class="vip-btn" href="https://mwi-mdr-v-2-4-v1-unity-2022.modworksinteractivecompany2026.workers.dev/" onclick="showVIP();return false;" data-action="vip">Locked — VIP Required</a>
+</div>
+
+<div class="package-desc" data-pkg="v24v2">
+<strong>MWi_MDR_v2.4-v2 — Unity 2022</strong>
+<div class="status beta" data-status-key="beta_vip">Status: Beta (VIP)</div>
+<div class="version-note" data-note-key="v24v2_note">Improved beta release with further integration and fixes.</div>
+<a class="vip-btn" href="https://mwi-mdr-v-2-4-v2-unity-2022.modworksinteractivecompany2026.workers.dev/" onclick="showVIP();return false;" data-action="vip">Locked — VIP Required</a>
+</div>
+
+<div class="package-desc" data-pkg="v24full">
+<strong>MWi_MDR_v2.4 Full — Unity 2022</strong>
+<div class="status stable" data-status-key="stable_vip">Status: Stable (VIP)</div>
+<div class="version-note" data-note-key="v24full_note">Full MDR ecosystem stable release.</div>
+<a class="vip-btn" href="https://mwi-mdr-v2-4-full-unity-2022.modworksinteractivecompany2026.workers.dev/" onclick="showVIP();return false;" data-action="vip">Locked — VIP Required</a>
+</div>
+</div>
+
+<div class="package-box">
+<div class="package-title" id="titleUpcoming">Upcoming — In Development</div>
+<div class="package-desc">
+<strong>MWi_MDR_v2.5-v1 — Unity 2022+</strong>
+<div class="status building" data-status-key="building_status">Status: In Development</div>
+<div class="version-note" data-note-key="v25_desc">New AI capabilities and improved Unity 2022+ stability. Developer demos and samples will be included, along with package files.</div>
+<div class="note-soft" data-note-key="v25_download_note">We are currently building the project. No download link yet.</div>
+</div>
+</div>
+
+<div class="usage-box" id="usageBox">
+<strong>How to Use MDR Packages:</strong><br><br>
+• Extract the ZIP file.<br>
+• Copy the extracted folder into your Unity project, or drag &amp; drop it.<br>
+• The MDR ecosystem will appear inside your project.<br>
+• Documentation and PDF guides are included when provided with the package.<br>
+• For help, contact MWi Support.<br>
+• Follow the website and official channels for updates.
+</div>
+
+</div></div>
+<script src="../../assets/js/i18n.js?v=7"></script>
+</body>
+</html>

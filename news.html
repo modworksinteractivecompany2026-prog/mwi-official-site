@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MWi • News</title>
+<link rel="stylesheet" href="../../assets/css/style.css?v=7">
+<style>
+.announce-box{background:rgba(15,15,15,.9);border:1px solid var(--mw-neon-mid);border-radius:14px;padding:16px;margin-top:22px;box-shadow:0 0 12px var(--mw-neon-soft);text-align:left}
+.announce-title{font-size:18px;color:var(--mw-neon);margin-bottom:10px;text-align:center}
+.announce-item{margin-bottom:16px;font-size:14px;line-height:1.65;padding-bottom:12px;border-bottom:1px solid rgba(79,216,255,.1)}
+.announce-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.sub-title{color:var(--mw-neon-light);font-size:15px;margin:18px 0 8px;font-weight:700}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:99px;margin-left:6px;vertical-align:middle}
+.tag-alpha{background:rgba(111,220,255,.15);color:#6fdcff;border:1px solid rgba(111,220,255,.35)}
+.tag-beta{background:rgba(255,226,122,.12);color:#ffe27a;border:1px solid rgba(255,226,122,.35)}
+.tag-stable{background:rgba(101,255,193,.12);color:#65ffc1;border:1px solid rgba(101,255,193,.35)}
+.tag-free{background:rgba(101,255,193,.12);color:#65ffc1;border:1px solid rgba(101,255,193,.35)}
+.tag-test{background:rgba(255,150,80,.12);color:#ffb070;border:1px solid rgba(255,150,80,.35)}
+.warn-note{margin-top:8px;font-size:13px;color:#ffb070;line-height:1.55}
+@media(max-width:600px){.announce-box{padding:13px}.announce-item{font-size:13px}}
+html[dir="rtl"] .announce-box,html[dir="rtl"] .announce-item{text-align:right}
+html[dir="rtl"] .tag{margin-left:0;margin-right:6px}
+</style>
+
+<style>
+/* MDR current vehicle list */
+.mdr-vehicle-list{
+  margin-top:24px;
+  padding:16px;
+  border:1px solid var(--mw-neon-mid);
+  border-radius:14px;
+  background:rgba(8,8,8,.72);
+  box-shadow:0 0 14px var(--mw-neon-soft);
+  text-align:center;
+}
+.mdr-vehicle-list-title{
+  color:var(--mw-neon-light);
+  font-size:16px;
+  font-weight:700;
+  margin:0 0 12px;
+}
+.mdr-vehicle-list-frame{
+  width:100%;
+  max-width:1100px;
+  margin:0 auto;
+  overflow:hidden;
+  border-radius:12px;
+  border:1px solid rgba(79,216,255,.30);
+  background:#050505;
+  cursor:zoom-in;
+}
+.mdr-vehicle-list-frame img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:72vh;
+  object-fit:contain;
+  margin:0 auto;
+  transition:transform .25s ease;
+}
+.mdr-vehicle-list-note{
+  margin:12px 4px 0;
+  color:var(--mw-text-soft);
+  font-size:14px;
+  line-height:1.6;
+}
+.mdr-vehicle-list-modal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.92);
+  touch-action:none;
+}
+.mdr-vehicle-list-modal.open{display:flex}
+.mdr-vehicle-list-stage{
+  position:relative;
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.mdr-vehicle-list-modal img{
+  max-width:96vw;
+  max-height:88vh;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  transform:scale(1);
+  transform-origin:center;
+  user-select:none;
+  -webkit-user-drag:none;
+  cursor:grab;
+}
+.mdr-vehicle-list-modal img.dragging{cursor:grabbing}
+.mdr-vehicle-list-tools{
+  position:absolute;
+  top:14px;
+  right:14px;
+  display:flex;
+  gap:8px;
+  z-index:2;
+}
+.mdr-vehicle-list-tools button{
+  min-width:42px;
+  height:42px;
+  border:1px solid var(--mw-neon-mid);
+  border-radius:10px;
+  background:rgba(8,8,8,.88);
+  color:var(--mw-neon-light);
+  font-size:18px;
+  cursor:pointer;
+  box-shadow:0 0 10px var(--mw-neon-soft);
+}
+.mdr-vehicle-list-tools button:hover{background:rgba(79,216,255,.12)}
+.mdr-vehicle-list-hint{
+  position:absolute;
+  bottom:14px;
+  left:50%;
+  transform:translateX(-50%);
+  color:var(--mw-text-soft);
+  font-size:12px;
+  background:rgba(0,0,0,.65);
+  border:1px solid rgba(79,216,255,.18);
+  border-radius:999px;
+  padding:7px 12px;
+  pointer-events:none;
+}
+html[dir="rtl"] .mdr-vehicle-list-tools{
+  right:auto;
+  left:14px;
+}
+@media(max-width:600px){
+  .mdr-vehicle-list{padding:12px}
+  .mdr-vehicle-list-frame img{max-height:62vh}
+  .mdr-vehicle-list-modal{padding:8px}
+  .mdr-vehicle-list-modal img{max-width:99vw;max-height:86vh}
+}
+</style>
+
+</head>
+<body data-mwi-page="news.html">
+<div class="center-box"><div class="frame3d">
+
+<div class="language-selector" id="languageSelector">
+<button class="language-button" id="languageButton" type="button" aria-haspopup="listbox" aria-expanded="false">
+<span class="language-current"><span class="language-flag" id="languageFlag">🇬🇧</span><span class="language-name" id="languageName">English — Global</span></span><span class="language-arrow">▼</span>
+</button>
+<div class="language-menu" id="languageMenu" role="listbox" aria-label="Language">
+<button class="language-option active" type="button" data-lang="en" role="option">🇬🇧 <span>English — Global</span></button>
+<button class="language-option" type="button" data-lang="fa" role="option">🇮🇷 <span>فارسی</span></button>
+<button class="language-option" type="button" data-lang="pt" role="option">🇵🇹 <span>Português</span></button>
+<button class="language-option" type="button" data-lang="es" role="option">🇪🇸 <span>Español</span></button>
+<button class="language-option" type="button" data-lang="zh" role="option">🇨🇳 <span>中文</span></button>
+<button class="language-option" type="button" data-lang="ja" role="option">🇯🇵 <span>日本語</span></button>
+<button class="language-option" type="button" data-lang="ru" role="option">🇷🇺 <span>Русский</span></button>
+<button class="language-option" type="button" data-lang="ko" role="option">🇰🇷 <span>한국어</span></button>
+<button class="language-option" type="button" data-lang="de" role="option">🇩🇪 <span>Deutsch</span></button>
+<button class="language-option" type="button" data-lang="it" role="option">🇮🇹 <span>Italiano</span></button>
+<button class="language-option" type="button" data-lang="mx" role="option">🇲🇽 <span>Español — México</span></button>
+<button class="language-option" type="button" data-lang="fr" role="option">🇫🇷 <span>Français</span></button>
+<button class="language-option" type="button" data-lang="ar" role="option">🇦🇷 <span>Español — Argentina</span></button>
+<button class="language-option" type="button" data-lang="ca" role="option">🇨🇦 <span>English — Canada</span></button>
+</div></div>
+
+<img src="../../assets/images/news.webp" class="frame-logo" alt="News">
+<div class="title">Latest News</div>
+<div class="desc">All MDR Engine and Road version announcements, statuses, and development updates from ModWorksInteractive (MWi).</div>
+
+<div class="menu">
+<a class="cube" href="engine.html"><img src="../../assets/images/mdr_engine.webp" alt=""><span>MDR Engine Pro Updates</span></a>
+<a class="cube" href="road.html"><img src="../../assets/images/mdr_road.webp" alt=""><span>MDR Road Pro Updates</span></a>
+<a class="cube" href="downloads.html"><img src="../../assets/images/downloads.webp" alt=""><span>Package Releases</span></a>
+<a class="cube" href="models.html"><img src="../../assets/images/models.webp" alt=""><span>3D Models Status</span></a>
+</div>
+
+<div class="announce-box">
+<div class="announce-title">MDR Engine &amp; Road — Official Version History</div>
+
+<div class="sub-title">Unity 6 Series</div>
+<div class="announce-item" data-news="u6v1">
+<strong>MDR v1.0 — Unity 6</strong> <span class="tag tag-alpha">Alpha</span> <span class="tag tag-free">Free</span>
+<br><span class="version-detail" data-news-key="news_u6_v1_detail">First Unity 6 alpha release for basic MDR testing.</span>
+<div class="warn-note" data-news-key="u6_warn">These first Unity 6 alpha builds are only for simple code testing. Please use newer versions.</div>
+</div>
+
+<div class="announce-item" data-news="u6v11">
+<strong>MDR v1.1 — Unity 6</strong> <span class="tag tag-beta">Beta</span> <span class="tag tag-free">Free</span>
+<br><span class="version-detail" data-news-key="news_u6_v11_detail">Updated Unity 6 test build.</span>
+<div class="warn-note" data-news-key="u6_warn">These first Unity 6 builds are only for simple code testing. Please use newer versions.</div>
+</div>
+
+<div class="sub-title">Unity 2022 Series — Base Builds</div>
+<div class="announce-item" data-news="u22v1">
+<strong>MDR v1 — Unity 2022</strong> <span class="tag tag-alpha">Alpha</span> <span class="tag tag-free">Free</span>
+<br><span class="version-detail" data-news-key="news_u22_v1_detail">Initial Unity 2022 structure and base test.</span>
+<div class="warn-note" data-news-key="u22_warn">From v1 to v2, these Unity 2022 builds are for initial testing and completing the structure. Please use newer versions.</div>
+</div>
+
+<div class="announce-item" data-news="u22v2">
+<strong>MDR v2 — Unity 2022</strong> <span class="tag tag-beta">Beta</span> <span class="tag tag-free">Free</span>
+<br><span class="version-detail" data-news-key="news_u22_v2_detail">Improved base structure and testing build.</span>
+<div class="warn-note" data-news-key="u22_warn">From v1 to v2, these Unity 2022 builds are for initial testing and completing the structure. Please use newer versions.</div>
+</div>
+
+<div class="sub-title">Unity 2022 Series — MDR Packages</div>
+<div class="announce-item">
+<strong>MDR v2.1 — Unity 2022</strong> <span class="tag tag-beta">Beta</span> <span class="tag tag-free">Free</span>
+<br><span class="version-detail" data-news-key="news_v21_detail"><strong>MDR Engine:</strong> dedicated release for the MDR Engine.</span>
+</div>
+
+<div class="announce-item">
+<strong>MDR v2.2 — Unity 2022</strong> <span class="tag tag-beta">Beta</span> <span class="tag tag-free">Free</span>
+<br><span class="version-detail" data-news-key="news_v22_detail"><strong>MDR Road:</strong> dedicated release for MDR Road.</span>
+</div>
+
+<div class="announce-item">
+<strong>MDR v2.3 — Unity 2022</strong> <span class="tag tag-stable">Stable</span> <span class="tag tag-stable">VIP</span>
+<br><span class="version-detail" data-news-key="news_v23_detail">Stable release after full review and cleanup.</span>
+</div>
+
+<div class="announce-item">
+<strong>MDR v2.4 — Version 1</strong> <span class="tag tag-beta">Beta</span> <span class="tag tag-stable">VIP</span>
+<br><span class="version-detail" data-news-key="news_v24v1_detail">Integrated MDR structure with four-layer AI, Personality, Adaptive Learning, TC/ESC/ABS, multi-layer Deformation, Pipeline Manager, Diagnostics, and SurfaceSync.</span>
+</div>
+
+<div class="announce-item">
+<strong>MDR v2.4 — Version 2</strong> <span class="tag tag-beta">Beta</span> <span class="tag tag-stable">VIP</span>
+<br><span class="version-detail" data-news-key="news_v24v2_detail">Improved integration, AI/Personality fixes, stronger vehicle-control systems, diagnostics and synchronization, with lower RAM/CPU usage.</span>
+</div>
+
+<div class="announce-item">
+<strong>MDR v2.4 Full — Unity 2022</strong> <span class="tag tag-stable">Stable</span> <span class="tag tag-stable">VIP</span>
+<br><span class="version-detail" data-news-key="news_v24full_detail">Full MDR ecosystem stable release.</span>
+</div>
+
+<div class="sub-title">Next Development</div>
+<div class="announce-item">
+<strong>MDR v2.5-v1 — Unity 2022+</strong> <span class="tag tag-test">In Development</span>
+<br><span class="version-detail" data-news-key="news_v25_detail">v2.5 development focuses on the documented MDR Engine and MDR Road packages, with 164 Engine scripts, 34 Road scripts, expanded AI/traffic, vehicle systems, road environments, materials and Unity 2022 / Unity 6 pipeline support.</span>
+<br><span class="warn-note" data-news-key="news_v25_note">The project is currently under development; no download link is available yet.</span>
+</div>
+
+</div>
+
+
+<div class="mdr-vehicle-list">
+  <div class="mdr-vehicle-list-title" data-news-key="vehicle_list_title">Current MDR Vehicle List</div>
+
+  <div class="mdr-vehicle-list-frame" id="mdrVehicleListOpen" role="button" tabindex="0"
+       aria-label="Open current MDR vehicle list">
+    <img src="../../assets/images/list.jpg"
+         alt="Current MDR vehicle list"
+         loading="lazy">
+  </div>
+
+  <div class="mdr-vehicle-list-note" data-news-key="vehicle_list_note">
+    This is the current vehicle list for MDR.
+  </div>
+</div>
+
+<div class="mdr-vehicle-list-modal" id="mdrVehicleListModal" aria-hidden="true">
+  <div class="mdr-vehicle-list-stage" id="mdrVehicleListStage">
+    <div class="mdr-vehicle-list-tools">
+      <button type="button" id="mdrZoomOut" aria-label="Zoom out">−</button>
+      <button type="button" id="mdrZoomReset" aria-label="Reset zoom">1×</button>
+      <button type="button" id="mdrZoomIn" aria-label="Zoom in">+</button>
+      <button type="button" id="mdrVehicleListClose" aria-label="Close">×</button>
+    </div>
+
+    <img id="mdrVehicleListModalImage"
+         src="../../assets/images/list.jpg"
+         alt="Current MDR vehicle list">
+
+    <div class="mdr-vehicle-list-hint">
+      Click/tap the image to zoom • Mouse wheel or +/− also works
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const openBtn = document.getElementById("mdrVehicleListOpen");
+  const modal = document.getElementById("mdrVehicleListModal");
+  const stage = document.getElementById("mdrVehicleListStage");
+  const image = document.getElementById("mdrVehicleListModalImage");
+  const closeBtn = document.getElementById("mdrVehicleListClose");
+  const zoomIn = document.getElementById("mdrZoomIn");
+  const zoomOut = document.getElementById("mdrZoomOut");
+  const zoomReset = document.getElementById("mdrZoomReset");
+
+  if(!openBtn || !modal || !image) return;
+
+  let scale = 1;
+  let x = 0, y = 0;
+  let dragging = false, startX = 0, startY = 0, baseX = 0, baseY = 0;
+
+  function render(){
+    image.style.transform = "translate(" + x + "px," + y + "px) scale(" + scale + ")";
+    zoomReset.textContent = scale.toFixed(1).replace(".0","") + "×";
+  }
+
+  function reset(){
+    scale = 1; x = 0; y = 0; render();
+  }
+
+  function changeZoom(amount){
+    scale = Math.min(4, Math.max(1, scale + amount));
+    if(scale === 1){ x = 0; y = 0; }
+    render();
+  }
+
+  function open(){
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+    reset();
+  }
+
+  function close(){
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+    reset();
+  }
+
+  openBtn.addEventListener("click", open);
+  openBtn.addEventListener("keydown", function(e){
+    if(e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+  });
+  closeBtn.addEventListener("click", close);
+  zoomIn.addEventListener("click", function(e){ e.stopPropagation(); changeZoom(.5); });
+  zoomOut.addEventListener("click", function(e){ e.stopPropagation(); changeZoom(-.5); });
+  zoomReset.addEventListener("click", function(e){ e.stopPropagation(); reset(); });
+
+  modal.addEventListener("click", function(e){
+    if(e.target === modal || e.target === stage) close();
+  });
+
+  image.addEventListener("click", function(e){
+    e.stopPropagation();
+    if(scale < 4) changeZoom(.5);
+    else reset();
+  });
+
+  stage.addEventListener("wheel", function(e){
+    e.preventDefault();
+    changeZoom(e.deltaY < 0 ? .25 : -.25);
+  }, {passive:false});
+
+  image.addEventListener("pointerdown", function(e){
+    if(scale <= 1) return;
+    dragging = true;
+    image.classList.add("dragging");
+    startX = e.clientX;
+    startY = e.clientY;
+    baseX = x;
+    baseY = y;
+    image.setPointerCapture(e.pointerId);
+  });
+
+  image.addEventListener("pointermove", function(e){
+    if(!dragging) return;
+    x = baseX + (e.clientX - startX);
+    y = baseY + (e.clientY - startY);
+    render();
+  });
+
+  image.addEventListener("pointerup", function(){
+    dragging = false;
+    image.classList.remove("dragging");
+  });
+
+  document.addEventListener("keydown", function(e){
+    if(!modal.classList.contains("open")) return;
+    if(e.key === "Escape") close();
+    if(e.key === "+") changeZoom(.5);
+    if(e.key === "-") changeZoom(-.5);
+    if(e.key === "0") reset();
+  });
+})();
+</script>
+
+<div class="desc" style="margin-top:24px;">
+Follow our official channels for real-time updates:
+<br>📧 Email: <a href="mailto:modworksinteractive@gmail.com">modworksinteractive@gmail.com</a>
+<br>▶️ YouTube: <a href="https://youtube.com/@mwi.2026" target="_blank" rel="noopener">youtube.com/@mwi.2026</a>
+<br>📎 Telegram: <a href="https://t.me/modCompany2009" target="_blank" rel="noopener">t.me/modCompany2009</a>
+<br>📷 Instagram: <a href="https://www.instagram.com/mwimdr2026/" target="_blank" rel="noopener">instagram.com/mwimdr2026</a>
+</div>
+
+</div></div>
+<script src="../../assets/js/i18n.js?v=7"></script>
+</body>
+</html>

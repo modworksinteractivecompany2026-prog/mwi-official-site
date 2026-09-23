@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDR Road Pro</title>
+<link rel="stylesheet" href="../../assets/css/style.css?v=7">
+<style>
+/* =========================================================
+   ROAD PAGE — RESPONSIVE LAYOUT
+   Phone · Tablet · Laptop · Large Display · TV
+   Coordinated with engine.html + global style.css + i18n.js
+   ========================================================= */
+
+body[data-mwi-page="road.html"] .frame3d {
+  width: 100%;
+  max-width: min(1180px, 96vw);
+  padding: clamp(20px, 3vw, 40px) clamp(14px, 2.5vw, 32px);
+  transform: none;
+}
+
+body[data-mwi-page="road.html"] .title {
+  font-size: clamp(22px, 3.2vw, 34px);
+}
+
+body[data-mwi-page="road.html"] .desc {
+  max-width: 100%;
+  font-size: clamp(14px, 1.35vw, 16px);
+}
+
+/* Intro */
+.road-full-intro {
+  margin-top: 22px;
+  text-align: left;
+}
+.road-full-intro h1 {
+  color: #4fd8ff;
+  font-size: clamp(18px, 2.4vw, 26px);
+  line-height: 1.35;
+  margin: 0 0 12px;
+}
+.road-full-intro p {
+  font-size: clamp(13px, 1.25vw, 15px);
+  line-height: 1.7;
+  color: var(--mw-text-soft);
+  margin: 0 0 12px;
+}
+.road-full-intro code {
+  direction: ltr;
+  unicode-bidi: plaintext;
+  background: rgba(79, 216, 255, 0.12);
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-size: 0.92em;
+}
+
+/* Feature grid overrides for wider frame */
+body[data-mwi-page="road.html"] .package-feature-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.8vw, 18px);
+  margin-top: 24px;
+}
+
+body[data-mwi-page="road.html"] .package-feature {
+  min-height: 150px;
+  padding: clamp(14px, 1.8vw, 18px);
+  background: rgba(12, 12, 12, 0.94);
+  border: 1px solid var(--mw-neon-mid);
+  border-radius: 14px;
+  box-shadow: 0 0 10px var(--mw-neon-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 9px;
+  min-width: 0;
+}
+
+body[data-mwi-page="road.html"] .package-feature img {
+  width: clamp(48px, 8vw, 58px);
+  height: clamp(48px, 8vw, 58px);
+  object-fit: contain;
+  border-radius: 10px;
+  animation: floatImage 5s ease-in-out infinite;
+}
+
+body[data-mwi-page="road.html"] .package-feature-title {
+  color: var(--mw-neon-light);
+  font-size: clamp(14px, 1.5vw, 15px);
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+}
+
+body[data-mwi-page="road.html"] .package-feature-text {
+  color: var(--mw-text-soft);
+  font-size: clamp(12px, 1.2vw, 13px);
+  line-height: 1.65;
+  text-align: center;
+}
+
+/* Menu centered on wide frames */
+body[data-mwi-page="road.html"] .menu {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 22px;
+}
+
+/* Technical block */
+.road-tech-box {
+  width: 100%;
+  margin-top: 26px;
+  padding: clamp(14px, 2vw, 20px);
+  background: rgba(8, 8, 8, 0.88);
+  border: 1px solid rgba(79, 216, 255, 0.30);
+  border-radius: 14px;
+  color: var(--mw-text-soft);
+  font-size: clamp(13px, 1.25vw, 14px);
+  line-height: 1.8;
+  text-align: left;
+}
+.road-tech-box strong {
+  color: var(--mw-neon-light);
+}
+
+/* Promo */
+body[data-mwi-page="road.html"] .package-promo-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  margin: 28px auto 0;
+  border: 1px solid var(--mw-neon-mid);
+  border-radius: 14px;
+  box-shadow: 0 0 14px var(--mw-neon-soft);
+  object-fit: contain;
+}
+
+body[data-mwi-page="road.html"] .package-promo-caption {
+  margin: 10px auto 0;
+  color: var(--mw-neon-light);
+  font-size: clamp(13px, 1.25vw, 14px);
+  font-weight: 700;
+  text-align: center;
+}
+
+body[data-mwi-page="road.html"] .package-ending {
+  margin-top: 28px;
+  padding: clamp(16px, 2vw, 20px) 16px;
+  border: 1px solid var(--mw-neon-mid);
+  border-radius: 14px;
+  background: rgba(8, 8, 8, 0.94);
+  box-shadow: 0 0 14px var(--mw-neon-soft);
+  text-align: center;
+}
+
+body[data-mwi-page="road.html"] .package-ending img {
+  width: clamp(70px, 12vw, 86px);
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 12px;
+}
+
+body[data-mwi-page="road.html"] .package-ending-title {
+  color: var(--mw-neon-light);
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+body[data-mwi-page="road.html"] .package-ending-text {
+  color: var(--mw-text-soft);
+  font-size: clamp(12px, 1.2vw, 13px);
+  line-height: 1.7;
+}
+
+/* ---------- BREAKPOINTS ---------- */
+
+@media (max-width: 600px) {
+  body[data-mwi-page="road.html"] .frame3d {
+    max-width: 100%;
+    padding: 20px 12px;
+  }
+  body[data-mwi-page="road.html"] .package-feature-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 800px) {
+  body[data-mwi-page="road.html"] .frame3d {
+    max-width: min(760px, 96vw);
+  }
+  body[data-mwi-page="road.html"] .package-feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1099px) {
+  body[data-mwi-page="road.html"] .frame3d {
+    max-width: min(960px, 94vw);
+  }
+  body[data-mwi-page="road.html"] .package-feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1499px) {
+  body[data-mwi-page="road.html"] .frame3d {
+    max-width: min(1180px, 92vw);
+  }
+  body[data-mwi-page="road.html"] .package-feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1500px) {
+  body[data-mwi-page="road.html"] .frame3d {
+    max-width: min(1480px, 90vw);
+    padding: 44px 40px;
+  }
+  body[data-mwi-page="road.html"] .package-feature-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  body[data-mwi-page="road.html"] .title {
+    font-size: 36px;
+  }
+}
+
+@media (min-width: 1900px) {
+  body[data-mwi-page="road.html"] .frame3d {
+    max-width: min(1680px, 88vw);
+  }
+  body[data-mwi-page="road.html"] .package-feature-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-mwi-page="road.html"] .package-feature img {
+    animation: none !important;
+  }
+}
+
+html[dir="rtl"] .road-full-intro,
+html[dir="rtl"] .road-tech-box,
+html[dir="rtl"] body[data-mwi-page="road.html"] .package-feature-text {
+  text-align: right;
+}
+html[dir="rtl"] body[data-mwi-page="road.html"] .package-feature-title {
+  text-align: center;
+}
+</style>
+</head>
+<body data-mwi-page="road.html">
+<div class="center-box">
+<div class="frame3d">
+
+<div class="language-selector" id="languageSelector">
+<button class="language-button" id="languageButton" type="button" aria-haspopup="listbox" aria-expanded="false">
+<span class="language-current">
+<span class="language-flag" id="languageFlag">🇬🇧</span>
+<span class="language-name" id="languageName">English — Global</span>
+</span>
+<span class="language-arrow" aria-hidden="true">▼</span>
+</button>
+<div class="language-menu" id="languageMenu" role="listbox" aria-label="Language">
+<button class="language-option active" type="button" data-lang="en" role="option">🇬🇧 <span>English — Global</span></button>
+<button class="language-option" type="button" data-lang="fa" role="option">🇮🇷 <span>فارسی</span></button>
+<button class="language-option" type="button" data-lang="pt" role="option">🇵🇹 <span>Português</span></button>
+<button class="language-option" type="button" data-lang="es" role="option">🇪🇸 <span>Español</span></button>
+<button class="language-option" type="button" data-lang="zh" role="option">🇨🇳 <span>中文</span></button>
+<button class="language-option" type="button" data-lang="ja" role="option">🇯🇵 <span>日本語</span></button>
+<button class="language-option" type="button" data-lang="ru" role="option">🇷🇺 <span>Русский</span></button>
+<button class="language-option" type="button" data-lang="ko" role="option">🇰🇷 <span>한국어</span></button>
+<button class="language-option" type="button" data-lang="de" role="option">🇩🇪 <span>Deutsch</span></button>
+<button class="language-option" type="button" data-lang="it" role="option">🇮🇹 <span>Italiano</span></button>
+<button class="language-option" type="button" data-lang="mx" role="option">🇲🇽 <span>Español — México</span></button>
+<button class="language-option" type="button" data-lang="fr" role="option">🇫🇷 <span>Français</span></button>
+<button class="language-option" type="button" data-lang="ar" role="option">🇦🇷 <span>Español — Argentina</span></button>
+<button class="language-option" type="button" data-lang="ca" role="option">🇨🇦 <span>English — Canada</span></button>
+</div>
+</div>
+
+<img src="../../assets/images/MDR_Road_Pro.webp" class="frame-logo" alt="MDR Road Pro">
+
+<div class="title" data-i18n="road_title">MDR Road Pro</div>
+
+<div class="desc" id="packageIntro" data-i18n="road_desc">
+MDR Road Pro is the v2.5 procedural road and environment package from ModWorksInteractive (MWi). Its documented scope covers road building, mesh generation, intersections, environments, materials, surface profiles and AI-ready road data for Unity 2022 and Unity 6.
+</div>
+
+<div class="desc road-full-intro">
+<h1>MDR Road Pro v2.5 — Feature Overview</h1>
+<p>The modules below follow the MDR Road v2.5 documentation. Each area keeps its documented role for designers and developers instead of being collapsed into a single summary.</p>
+<p><b>Recommended setup:</b> Import the MDR Road v2.5 folder into Assets → place <code>MDR_RoadBuilderCore</code> and <code>MDR_RoadMeshGenerator</code> → add intersection / environment modules and surface profiles → link with MDR Engine via SurfaceSync / Bootstrap when both packages are present.</p>
+</div>
+
+<div class="package-feature-grid" aria-label="MDR Road v2.5 feature modules">
+  <div class="package-feature">
+    <img src="../../assets/icons/Core%20(1).jpg" alt="Road Core" loading="lazy">
+    <div class="package-feature-title" data-i18n="road_feature_core_title">Road Core &amp; Mesh</div>
+    <div class="package-feature-text" data-i18n="road_feature_core_text">Ordered road nodes, connectors, continuous mesh generation and MeshCollider support.</div>
+  </div>
+  <div class="package-feature">
+    <img src="../../assets/icons/Environments.jpg" alt="Road Environments" loading="lazy">
+    <div class="package-feature-title" data-i18n="road_feature_env_title">Environments</div>
+    <div class="package-feature-text" data-i18n="road_feature_env_text">City, desert, forest, mountain, bridge and tunnel builders with configurable profiles.</div>
+  </div>
+  <div class="package-feature">
+    <img src="../../assets/icons/Materials.jpg" alt="Road Materials" loading="lazy">
+    <div class="package-feature-title" data-i18n="road_feature_materials_title">Materials &amp; Surface</div>
+    <div class="package-feature-text" data-i18n="road_feature_materials_text">Layered road materials, markings, dirt/damage effects and surface definitions.</div>
+  </div>
+  <div class="package-feature">
+    <img src="../../assets/icons/Modules.jpg" alt="Road Modules" loading="lazy">
+    <div class="package-feature-title" data-i18n="road_feature_modules_title">Intersections &amp; Modules</div>
+    <div class="package-feature-text" data-i18n="road_feature_modules_text">Crossroads, T-junctions, roundabouts, highway merges and AI path connections.</div>
+  </div>
+  <div class="package-feature">
+    <img src="../../assets/icons/Profiles.jpg" alt="Road Profiles" loading="lazy">
+    <div class="package-feature-title" data-i18n="road_feature_profiles_title">Profiles &amp; Engine Sync</div>
+    <div class="package-feature-text" data-i18n="road_feature_profiles_text">Highway, city, dirt and other surface profiles that feed friction and AI/Engine behavior.</div>
+  </div>
+</div>
+
+<div class="menu">
+  <a class="cube" href="road.html">
+    <img src="../../assets/images/mdr_road.webp" alt="">
+    <span>Road Features</span>
+  </a>
+  <a class="cube" href="engine.html">
+    <img src="../../assets/images/mdr_engine.webp" alt="">
+    <span>Engine Integration</span>
+  </a>
+  <a class="cube" href="models.html">
+    <img src="../../assets/images/models.webp" alt="">
+    <span>3D Road Assets</span>
+  </a>
+  <a class="cube" href="downloads.html">
+    <img src="../../assets/images/downloads.webp" alt="">
+    <span>Download Packages</span>
+  </a>
+</div>
+
+<div class="road-tech-box" id="packageTechnical">
+<strong data-i18n="supported">Supported Versions:</strong>
+<br>
+<span data-i18n="version_u22">• Unity 2022 (v2.1 → v2.4-v2)</span>
+<br>
+<span data-i18n="version_u6">• Unity 6 (2026 builds)</span>
+<br><br>
+<span data-i18n="road_tech">The v2.5 documentation lists 34 MDR Road scripts. The recommended setup starts with MDR_RoadBuilderCore and MDR_RoadMeshGenerator, followed by modules, profiles and environment builders.</span>
+</div>
+
+<img class="package-promo-image" src="../../assets/images/Road.jpg" alt="MDR Road package preview" loading="lazy">
+<div class="package-promo-caption" data-i18n="road_promo_caption">MDR Road — v2.5 package preview</div>
+
+<div class="package-ending">
+  <img src="../../assets/icons/icon.webp" alt="ModWorksInteractive MWi">
+  <div class="package-ending-title" data-i18n="package_ending_title">ModWorksInteractive — MDR v2.5</div>
+  <div class="package-ending-text" data-i18n="road_ending_text">Official MWi package documentation and promotional material for the MDR Road v2.5 release.</div>
+</div>
+
+</div>
+</div>
+<script src="../../assets/js/i18n.js?v=7"></script>
+</body>
+</html>

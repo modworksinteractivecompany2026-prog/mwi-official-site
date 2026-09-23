@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MWi • 3D Viewer</title>
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=7">
+
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+        }
+    }
+    </script>
+
+    <style>
+        .viewer-container {
+            width: 100%;
+            height: 420px;
+            border-radius: 14px;
+            border: 1px solid var(--mw-neon-mid);
+            background: #050505;
+            overflow: hidden;
+            margin-top: 18px;
+            position: relative;
+            box-shadow: 0 0 16px var(--mw-neon-soft);
+        }
+
+        #viewerCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+        }
+
+        .loading-screen {
+            position: absolute;
+            inset: 0;
+            background: #050505;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            z-index: 10;
+            transition: opacity .35s ease;
+        }
+
+        .loading-screen img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            opacity: .9;
+        }
+
+        .loading-text {
+            font-size: 13px;
+            letter-spacing: .08em;
+            color: #4fd8ff;
+            text-shadow: 0 0 10px #4fd8ff;
+        }
+
+        .loading-bar {
+            width: min(280px, 70%);
+            height: 4px;
+            border-radius: 99px;
+            background: #151515;
+            overflow: hidden;
+            border: 1px solid rgba(79, 216, 255, .25);
+        }
+
+        .loading-fill {
+            width: 0;
+            height: 100%;
+            background: #4fd8ff;
+            box-shadow: 0 0 12px #4fd8ff;
+            transition: width .15s ease;
+        }
+
+        .loading-error {
+            max-width: 80%;
+            text-align: center;
+            color: #ff6b6b;
+            display: none;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .model-info {
+            margin-top: 14px;
+            font-size: 14px;
+            opacity: .85;
+        }
+    </style>
+</head>
+
+<body data-mwi-page="models.html">
+
+<div class="center-box">
+
+    <div class="frame3d">
+
+        <div class="language-selector" id="languageSelector">
+            <button class="language-button" id="languageButton" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <span class="language-current">
+                    <span class="language-flag" id="languageFlag">🇬🇧</span>
+                    <span class="language-name" id="languageName">English — Global</span>
+                </span>
+                <span class="language-arrow" aria-hidden="true">▼</span>
+            </button>
+            <div class="language-menu" id="languageMenu" role="listbox" aria-label="Language">
+                <button class="language-option active" type="button" data-lang="en" role="option">🇬🇧 <span>English — Global</span></button>
+                <button class="language-option" type="button" data-lang="fa" role="option">🇮🇷 <span>فارسی</span></button>
+                <button class="language-option" type="button" data-lang="pt" role="option">🇵🇹 <span>Português</span></button>
+                <button class="language-option" type="button" data-lang="es" role="option">🇪🇸 <span>Español</span></button>
+                <button class="language-option" type="button" data-lang="zh" role="option">🇨🇳 <span>中文</span></button>
+                <button class="language-option" type="button" data-lang="ja" role="option">🇯🇵 <span>日本語</span></button>
+                <button class="language-option" type="button" data-lang="ru" role="option">🇷🇺 <span>Русский</span></button>
+                <button class="language-option" type="button" data-lang="ko" role="option">🇰🇷 <span>한국어</span></button>
+                <button class="language-option" type="button" data-lang="de" role="option">🇩🇪 <span>Deutsch</span></button>
+                <button class="language-option" type="button" data-lang="it" role="option">🇮🇹 <span>Italiano</span></button>
+                <button class="language-option" type="button" data-lang="mx" role="option">🇲🇽 <span>Español — México</span></button>
+                <button class="language-option" type="button" data-lang="fr" role="option">🇫🇷 <span>Français</span></button>
+                <button class="language-option" type="button" data-lang="ar" role="option">🇦🇷 <span>Español — Argentina</span></button>
+                <button class="language-option" type="button" data-lang="ca" role="option">🇨🇦 <span>English — Canada</span></button>
+            </div>
+        </div>
+
+        <!-- Header Image -->
+        <img
+            src="../../assets/images/models.webp"
+            class="frame-logo"
+            alt="3D Models"
+        >
+
+        <div class="title">
+            MDR 3D Model Viewer
+        </div>
+
+        <div class="desc">
+            Preview official MDR 3D models directly in your browser.
+            <br>
+            Please wait until the model is fully loaded.
+        </div>
+
+
+        <!-- 3D VIEWER -->
+        <div class="viewer-container">
+
+            <!-- Loading Screen -->
+            <div
+                id="loadingScreen"
+                class="loading-screen"
+            >
+
+                <img
+                    src="../../assets/images/loading.webp"
+                    alt="Loading model"
+                >
+
+                <div
+                    id="loadingText"
+                    class="loading-text"
+                >
+                    Loading 3D model… 0%
+                </div>
+
+                <div class="loading-bar">
+                    <div
+                        id="loadingFill"
+                        class="loading-fill"
+                    ></div>
+                </div>
+
+                <div
+                    id="loadingError"
+                    class="loading-error"
+                ></div>
+
+            </div>
+
+
+            <!-- WebGL Canvas -->
+            <canvas
+                id="viewerCanvas"
+            ></canvas>
+
+        </div>
+
+
+        <!-- Model Information -->
+        <div class="model-info">
+
+            <strong>Current Model:</strong>
+            2022_arash_imperium.glb
+
+            <br>
+
+            Use mouse or touch to rotate,
+            zoom and move around the model.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- MDR 3D Viewer JavaScript -->
+<script
+    type="module"
+    src="../../assets/js/models.js"
+></script>
+
+    <script src="../../assets/js/i18n.js?v=7"></script>
+</body>
+</html>

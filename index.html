@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="description"
+        content="ModWorksInteractive — MDR"
+    >
+
+    <meta
+        name="theme-color"
+        content="#050505"
+    >
+
+    <title>ModWorks Interactive • MDR</title>
+
+    <link
+        rel="icon"
+        type="image/webp"
+        href="assets/images/ModWorksInteractive.webp"
+    >
+
+    <style>
+        /* =====================================================
+           MWi / ModWorksInteractive
+           INDEX / SPLASH SCREEN
+           ===================================================== */
+
+        :root {
+            --mw-bg: #050505;
+            --mw-neon: #4fd8ff;
+            --mw-neon-light: #8fe8ff;
+            --mw-neon-soft: rgba(79, 216, 255, 0.25);
+            --mw-neon-mid: rgba(79, 216, 255, 0.45);
+            --mw-text: #eafaff;
+            --mw-text-soft: #bfefff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            background: var(--mw-bg);
+        }
+
+        body {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 50% 45%,
+                    rgba(79, 216, 255, 0.055),
+                    transparent 42%
+                ),
+                var(--mw-bg);
+
+            color: var(--mw-text);
+
+            font-family:
+                "Inter",
+                "Noto Sans",
+                "Noto Sans Arabic",
+                "Noto Sans CJK JP",
+                Arial,
+                sans-serif;
+
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -webkit-text-size-adjust: 100%;
+        }
+
+
+        /* =====================================================
+           BACKGROUND EFFECT
+           ===================================================== */
+
+        .background-glow {
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    rgba(79, 216, 255, 0.035),
+                    transparent 55%
+                );
+
+            animation:
+                backgroundPulse 6s ease-in-out infinite;
+        }
+
+
+        /* =====================================================
+           SPLASH CONTAINER
+           ===================================================== */
+
+        .splash {
+            position: relative;
+
+            width: min(92vw, 620px);
+
+            padding: 34px 22px;
+
+            text-align: center;
+
+            border-radius: 20px;
+
+            border:
+                1px solid var(--mw-neon-mid);
+
+            background:
+                rgba(8, 8, 8, 0.90);
+
+            box-shadow:
+                0 0 14px var(--mw-neon-soft),
+                0 0 30px rgba(79, 216, 255, 0.14);
+
+            animation:
+                splashIn 1s ease forwards,
+                glowPulse 6s ease-in-out infinite;
+        }
+
+
+        /* =====================================================
+           LOGO
+           ===================================================== */
+
+        .logo {
+            width: 170px;
+            max-width: 62vw;
+
+            height: auto;
+
+            display: block;
+
+            margin: 0 auto 20px;
+
+            object-fit: contain;
+
+            animation:
+                logoFloat 5s ease-in-out infinite;
+        }
+
+
+        /* =====================================================
+           TITLE
+           ===================================================== */
+
+        .title {
+            margin: 0;
+
+            color: var(--mw-neon-light);
+
+            font-size:
+                clamp(23px, 6vw, 34px);
+
+            font-weight: 700;
+
+            line-height: 1.3;
+
+            text-shadow:
+                0 0 10px var(--mw-neon-soft),
+                0 0 20px rgba(79, 216, 255, 0.15);
+        }
+
+
+        /* =====================================================
+           SUBTITLE
+           ===================================================== */
+
+        .subtitle {
+            margin: 8px 0 26px;
+
+            color: var(--mw-text-soft);
+
+            font-size:
+                clamp(13px, 3.5vw, 16px);
+
+            line-height: 1.6;
+
+            opacity: 0.9;
+        }
+
+
+        /* =====================================================
+           LOADING TEXT
+           ===================================================== */
+
+        .loading-text {
+            min-height: 24px;
+
+            margin-bottom: 12px;
+
+            color: var(--mw-neon-light);
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            text-shadow:
+                0 0 7px var(--mw-neon-soft);
+        }
+
+
+        /* =====================================================
+           PROGRESS BAR
+           ===================================================== */
+
+        .progress-container {
+            width: min(440px, 88%);
+
+            height: 8px;
+
+            margin: 0 auto;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+            border:
+                1px solid rgba(79, 216, 255, 0.28);
+
+            background:
+                rgba(255, 255, 255, 0.035);
+        }
+
+        .progress-bar {
+            width: 0%;
+
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                var(--mw-neon);
+
+            box-shadow:
+                0 0 10px var(--mw-neon-soft);
+
+            transition:
+                width 0.15s linear;
+        }
+
+
+        /* =====================================================
+           PERCENTAGE
+           ===================================================== */
+
+        .percentage {
+            margin-top: 10px;
+
+            color: var(--mw-text-soft);
+
+            font-size: 12px;
+
+            font-variant-numeric: tabular-nums;
+        }
+
+
+        /* =====================================================
+           BRAND FOOTER
+           ===================================================== */
+
+        .footer {
+            margin-top: 24px;
+
+            color: rgba(191, 239, 255, 0.55);
+
+            font-size: 11px;
+
+            letter-spacing: 0.4px;
+        }
+
+
+        /* =====================================================
+           ANIMATIONS
+           ===================================================== */
+
+        @keyframes splashIn {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    perspective(900px)
+                    rotateX(4deg)
+                    translateY(12px)
+                    scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    perspective(900px)
+                    rotateX(2deg)
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 14px var(--mw-neon-soft),
+                    0 0 30px rgba(79, 216, 255, 0.14);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 20px var(--mw-neon-mid),
+                    0 0 42px rgba(79, 216, 255, 0.20);
+            }
+        }
+
+
+        @keyframes logoFloat {
+
+            0%,
+            100% {
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    translateY(-6px);
+            }
+        }
+
+
+        @keyframes backgroundPulse {
+
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .splash {
+                width: calc(100% - 24px);
+
+                padding:
+                    28px 16px;
+
+                border-radius:
+                    17px;
+            }
+
+            .logo {
+                width:
+                    140px;
+
+                margin-bottom:
+                    16px;
+            }
+
+            .subtitle {
+                margin-bottom:
+                    22px;
+            }
+
+            .progress-container {
+                width:
+                    88%;
+            }
+        }
+
+
+        /* =====================================================
+           VERY SMALL DEVICES
+           ===================================================== */
+
+        @media (max-width: 360px) {
+
+            .splash {
+                padding:
+                    24px 13px;
+            }
+
+            .logo {
+                width:
+                    120px;
+            }
+
+            .footer {
+                font-size:
+                    10px;
+            }
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+           ===================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-glow"></div>
+
+    <main
+        class="splash"
+        aria-label="ModWorksInteractive loading screen"
+    >
+
+        <img
+            class="logo"
+            src="assets/images/ModWorksInteractive.webp"
+            alt="ModWorksInteractive"
+            draggable="false"
+        >
+
+        <h1 class="title">
+            ModWorks Interactive
+        </h1>
+
+        <div class="subtitle">
+            MDR · Mod Realistic Driving (MDR)
+        </div>
+
+        <div
+            id="loadingText"
+            class="loading-text"
+            aria-live="polite"
+        >
+            Loading MWi…
+        </div>
+
+        <div
+            class="progress-container"
+            role="progressbar"
+            aria-label="Loading progress"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+        >
+            <div
+                id="progressBar"
+                class="progress-bar"
+            ></div>
+        </div>
+
+        <div
+            id="percentage"
+            class="percentage"
+        >
+            0%
+        </div>
+
+        <div class="footer">
+            ModWorksInteractive · MWi
+        </div>
+
+    </main>
+
+
+    <script>
+        /* =====================================================
+           MWi INDEX LOADER
+           ===================================================== */
+
+        (function () {
+
+            "use strict";
+
+
+            /* -------------------------------------------------
+               SETTINGS
+               ------------------------------------------------- */
+
+            const REDIRECT_TARGET = "data/WWW/home.html";
+
+            const TOTAL_TIME = 1800;
+
+            const START_TIME = Date.now();
+
+
+            /* -------------------------------------------------
+               ELEMENTS
+               ------------------------------------------------- */
+
+            const progressBar =
+                document.getElementById("progressBar");
+
+            const percentage =
+                document.getElementById("percentage");
+
+            const loadingText =
+                document.getElementById("loadingText");
+
+            const progressContainer =
+                document.querySelector(".progress-container");
+
+
+            /* -------------------------------------------------
+               STATE
+               ------------------------------------------------- */
+
+            let currentProgress = 0;
+
+            let redirected = false;
+
+
+            /* -------------------------------------------------
+               SAFE TEXT
+               ------------------------------------------------- */
+
+            function setLoadingText(text) {
+
+                if (loadingText) {
+                    loadingText.textContent = text;
+                }
+
+            }
+
+
+            /* -------------------------------------------------
+               UPDATE PROGRESS
+               ------------------------------------------------- */
+
+            function updateProgress(value) {
+
+                value = Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        Math.round(value)
+                    )
+                );
+
+                currentProgress = value;
+
+
+                if (progressBar) {
+                    progressBar.style.width =
+                        value + "%";
+                }
+
+
+                if (percentage) {
+                    percentage.textContent =
+                        value + "%";
+                }
+
+
+                if (progressContainer) {
+                    progressContainer.setAttribute(
+                        "aria-valuenow",
+                        String(value)
+                    );
+                }
+
+
+                if (value < 30) {
+
+                    setLoadingText(
+                        "Loading MWi…"
+                    );
+
+                } else if (value < 60) {
+
+                    setLoadingText(
+                        "Preparing MDR…"
+                    );
+
+                } else if (value < 85) {
+
+                    setLoadingText(
+                        "Preparing Mod Realistic Driving (MDR)…"
+                    );
+
+                } else if (value < 100) {
+
+                    setLoadingText(
+                        "Almost ready…"
+                    );
+
+                } else {
+
+                    setLoadingText(
+                        "Welcome to MWi"
+                    );
+                }
+            }
+
+
+            /* -------------------------------------------------
+               REDIRECT
+               ------------------------------------------------- */
+
+            function redirectToHome() {
+
+                if (redirected) {
+                    return;
+                }
+
+                redirected = true;
+
+                updateProgress(100);
+
+                setLoadingText(
+                    "Welcome to MWi"
+                );
+
+
+                /*
+                 * Small delay prevents the final frame
+                 * from being skipped on slower devices.
+                 */
+
+                setTimeout(function () {
+
+                    window.location.replace(
+                        REDIRECT_TARGET
+                    );
+
+                }, 180);
+
+            }
+
+
+            /* -------------------------------------------------
+               LOADING LOOP
+               ------------------------------------------------- */
+
+            function loadingLoop() {
+
+                if (redirected) {
+                    return;
+                }
+
+
+                const elapsed =
+                    Date.now() - START_TIME;
+
+
+                let progress =
+                    (elapsed / TOTAL_TIME) * 100;
+
+
+                /*
+                 * Smooth the final section so the screen
+                 * does not instantly jump to 100%.
+                 */
+
+                if (progress >= 100) {
+
+                    progress = 100;
+
+                    updateProgress(
+                        progress
+                    );
+
+                    redirectToHome();
+
+                    return;
+                }
+
+
+                updateProgress(
+                    progress
+                );
+
+
+                requestAnimationFrame(
+                    loadingLoop
+                );
+            }
+
+
+            /* -------------------------------------------------
+               START
+               ------------------------------------------------- */
+
+            updateProgress(0);
+
+            requestAnimationFrame(
+                loadingLoop
+            );
+
+
+            /* -------------------------------------------------
+               FAILSAFE
+               ------------------------------------------------- */
+
+            setTimeout(function () {
+
+                if (!redirected) {
+
+                    updateProgress(100);
+
+                    redirectToHome();
+                }
+
+            }, TOTAL_TIME + 1200);
+
+
+            /* -------------------------------------------------
+               PRELOAD HOME
+               ------------------------------------------------- */
+
+            try {
+
+                const preload =
+                    document.createElement("link");
+
+                preload.rel = "prefetch";
+
+                preload.href =
+                    REDIRECT_TARGET;
+
+                document.head.appendChild(
+                    preload
+                );
+
+            } catch (error) {
+
+                /*
+                 * Prefetch is optional.
+                 * Navigation still works normally.
+                 */
+
+            }
+
+        })();
+    </script>
+
+</body>
+</html>

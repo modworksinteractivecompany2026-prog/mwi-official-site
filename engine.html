@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDR Engine Pro</title>
+<link rel="stylesheet" href="../../assets/css/style.css?v=7">
+<style>
+/* =========================================================
+   ENGINE PAGE — RESPONSIVE LAYOUT
+   Phone · Tablet · Laptop · Large Display · TV
+   ========================================================= */
+
+/* Base frame expansion for this page only */
+body[data-mwi-page="engine.html"] .frame3d {
+  width: 100%;
+  max-width: min(1180px, 96vw);
+  padding: clamp(20px, 3vw, 40px) clamp(14px, 2.5vw, 32px);
+  transform: none; /* flatter on wide screens for readability */
+}
+
+body[data-mwi-page="engine.html"] .title {
+  font-size: clamp(22px, 3.2vw, 34px);
+}
+
+body[data-mwi-page="engine.html"] .desc {
+  max-width: 100%;
+  font-size: clamp(14px, 1.35vw, 16px);
+}
+
+/* Intro block */
+.engine-full-intro {
+  margin-top: 24px;
+  text-align: left;
+}
+.engine-full-intro h1,
+.engine-full-intro h2 {
+  color: #4fd8ff;
+  font-size: clamp(18px, 2.4vw, 26px);
+  line-height: 1.35;
+}
+.engine-full-intro p {
+  font-size: clamp(13px, 1.25vw, 15px);
+  line-height: 1.7;
+}
+.engine-full-intro code {
+  direction: ltr;
+  unicode-bidi: plaintext;
+  background: rgba(79, 216, 255, 0.12);
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-size: 0.92em;
+}
+
+/* Module grid — fluid columns */
+.engine-module-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.8vw, 20px);
+  margin-top: 26px;
+  width: 100%;
+}
+
+.engine-module {
+  background: rgba(10, 16, 22, 0.82);
+  border: 1px solid rgba(79, 216, 255, 0.28);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 18px rgba(79, 216, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.engine-module > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  max-width: 100%;
+}
+
+.engine-module-content {
+  padding: clamp(12px, 1.6vw, 18px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.engine-module-number {
+  font-size: clamp(10px, 1.1vw, 11px);
+  letter-spacing: 1.8px;
+  color: #4fd8ff;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.engine-module h2 {
+  margin: 0 0 8px;
+  font-size: clamp(16px, 1.9vw, 22px);
+  overflow-wrap: anywhere;
+  color: #8ee7ff;
+  line-height: 1.3;
+}
+
+.engine-role,
+.engine-controls {
+  line-height: 1.65;
+  color: #d7e8ef;
+  font-size: clamp(12px, 1.2vw, 14px);
+}
+
+.engine-meta {
+  display: inline-block;
+  margin: 7px 0 8px;
+  padding: 5px 9px;
+  border-radius: 9px;
+  background: rgba(79, 216, 255, 0.10);
+  color: #8ee7ff;
+  font-size: clamp(11px, 1.1vw, 12px);
+}
+
+.engine-scripts,
+.engine-script {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.engine-scripts {
+  margin-top: 14px;
+  padding: 0 11px;
+}
+
+.engine-scripts > summary,
+.engine-script > summary {
+  cursor: pointer;
+  padding: 11px 2px;
+  color: #8ee7ff;
+  font-weight: 700;
+  font-size: clamp(12px, 1.2vw, 14px);
+  list-style: none;
+}
+
+.engine-scripts > summary::-webkit-details-marker,
+.engine-script > summary::-webkit-details-marker {
+  display: none;
+}
+
+.engine-script-list {
+  padding: 0 0 10px;
+}
+
+.engine-script {
+  margin: 7px 0;
+  padding: 0 10px;
+}
+
+.engine-script-body {
+  padding: 0 2px 11px;
+  color: #cfe0e6;
+  line-height: 1.55;
+  font-size: clamp(12px, 1.15vw, 13px);
+}
+
+.engine-script-body div + div {
+  margin-top: 5px;
+}
+
+/* Promo image block */
+.engine-promo {
+  margin-top: 28px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(79, 216, 255, 0.30);
+  background: #050505;
+}
+
+.engine-promo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.engine-promo-caption {
+  padding: 13px 16px;
+  color: #d7e8ef;
+  text-align: center;
+  font-size: clamp(13px, 1.25vw, 15px);
+}
+
+/* Ending */
+.engine-ending {
+  margin: 28px 0 8px;
+  text-align: center;
+}
+
+.engine-ending img {
+  width: clamp(100px, 18vw, 150px);
+  height: auto;
+  max-width: 100%;
+  border-radius: 20px;
+}
+
+.engine-ending h2 {
+  color: #4fd8ff;
+  margin: 12px 0 7px;
+  font-size: clamp(16px, 2vw, 22px);
+}
+
+.engine-ending p {
+  color: #cfe0e6;
+  line-height: 1.6;
+  font-size: clamp(13px, 1.25vw, 15px);
+}
+
+/* Menu cubes remain readable */
+body[data-mwi-page="engine.html"] .menu {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------- BREAKPOINTS ---------- */
+
+/* Phone (portrait) */
+@media (max-width: 600px) {
+  body[data-mwi-page="engine.html"] .frame3d {
+    max-width: 100%;
+    padding: 20px 12px;
+  }
+  .engine-module-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .engine-module-content {
+    padding: 14px;
+  }
+  .engine-module h2 {
+    font-size: 18px;
+  }
+}
+
+/* Large phone / small tablet */
+@media (min-width: 601px) and (max-width: 800px) {
+  body[data-mwi-page="engine.html"] .frame3d {
+    max-width: min(760px, 96vw);
+  }
+  .engine-module-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Tablet / small laptop */
+@media (min-width: 801px) and (max-width: 1099px) {
+  body[data-mwi-page="engine.html"] .frame3d {
+    max-width: min(960px, 94vw);
+  }
+  .engine-module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Laptop / desktop */
+@media (min-width: 1100px) and (max-width: 1499px) {
+  body[data-mwi-page="engine.html"] .frame3d {
+    max-width: min(1180px, 92vw);
+  }
+  .engine-module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+/* Large display / TV */
+@media (min-width: 1500px) {
+  body[data-mwi-page="engine.html"] .frame3d {
+    max-width: min(1480px, 90vw);
+    padding: 44px 40px;
+  }
+  .engine-module-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+  body[data-mwi-page="engine.html"] .title {
+    font-size: 36px;
+  }
+  .engine-module h2 {
+    font-size: 20px;
+  }
+  .engine-role,
+  .engine-controls {
+    font-size: 14px;
+  }
+}
+
+/* Ultra-wide / 4K TV comfort */
+@media (min-width: 1900px) {
+  body[data-mwi-page="engine.html"] .frame3d {
+    max-width: min(1680px, 88vw);
+  }
+  .engine-module-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/* Prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .engine-module,
+  .engine-promo {
+    transition: none !important;
+  }
+}
+
+/* RTL safety for Persian / Arabic */
+html[dir="rtl"] .engine-full-intro,
+html[dir="rtl"] .engine-module-content,
+html[dir="rtl"] .engine-role,
+html[dir="rtl"] .engine-controls {
+  text-align: right;
+}
+html[dir="rtl"] .engine-scripts > summary,
+html[dir="rtl"] .engine-script > summary {
+  text-align: right;
+}
+</style>
+</head>
+<body data-mwi-page="engine.html">
+<div class="center-box">
+<div class="frame3d">
+<div class="language-selector" id="languageSelector">
+<button class="language-button" id="languageButton" type="button" aria-haspopup="listbox" aria-expanded="false">
+<span class="language-current"><span class="language-flag" id="languageFlag">🇬🇧</span><span class="language-name" id="languageName">English — Global</span></span><span class="language-arrow" aria-hidden="true">▼</span>
+</button>
+<div class="language-menu" id="languageMenu" role="listbox" aria-label="Language">
+<button class="language-option active" type="button" data-lang="en" role="option">🇬🇧 <span>English — Global</span></button>
+<button class="language-option" type="button" data-lang="fa" role="option">🇮🇷 <span>فارسی</span></button>
+<button class="language-option" type="button" data-lang="pt" role="option">🇵🇹 <span>Português</span></button>
+<button class="language-option" type="button" data-lang="es" role="option">🇪🇸 <span>Español</span></button>
+<button class="language-option" type="button" data-lang="zh" role="option">🇨🇳 <span>中文</span></button>
+<button class="language-option" type="button" data-lang="ja" role="option">🇯🇵 <span>日本語</span></button>
+<button class="language-option" type="button" data-lang="ru" role="option">🇷🇺 <span>Русский</span></button>
+<button class="language-option" type="button" data-lang="ko" role="option">🇰🇷 <span>한국어</span></button>
+<button class="language-option" type="button" data-lang="de" role="option">🇩🇪 <span>Deutsch</span></button>
+<button class="language-option" type="button" data-lang="it" role="option">🇮🇹 <span>Italiano</span></button>
+<button class="language-option" type="button" data-lang="mx" role="option">🇲🇽 <span>Español — México</span></button>
+<button class="language-option" type="button" data-lang="fr" role="option">🇫🇷 <span>Français</span></button>
+<button class="language-option" type="button" data-lang="ar" role="option">🇦🇷 <span>Español — Argentina</span></button>
+<button class="language-option" type="button" data-lang="ca" role="option">🇨🇦 <span>English — Canada</span></button>
+</div></div>
+<img src="../../assets/images/MDR_Engine_Pro.webp" class="frame-logo" alt="MDR Engine Pro">
+<div class="title" data-i18n="engine_title">MDR Engine Pro</div>
+<div class="desc" data-i18n="engine_desc">MDR Engine Pro v2.5 is the documented vehicle simulation and AI system developed by ModWorksInteractive (MWi), covering vehicle physics, AI, police, damage, player input, pipeline, world and traffic systems.</div>
+<div class="menu">
+<a class="cube" href="engine.html"><img src="../../assets/images/mdr_engine.webp" alt=""><span data-i18n="engine_features">Engine Features</span></a>
+<a class="cube" href="road.html"><img src="../../assets/images/mdr_road.webp" alt=""><span data-i18n="road_system">Road System</span></a>
+<a class="cube" href="models.html"><img src="../../assets/images/models.webp" alt=""><span data-i18n="integration">3D Integration</span></a>
+<a class="cube" href="downloads.html"><img src="../../assets/images/downloads.webp" alt=""><span data-i18n="download_packages">Download Packages</span></a>
+</div>
+<div class="desc engine-full-intro">
+<h1>MDR Engine Pro v2.5 — Full Module Overview</h1>
+<p>The module list below follows the MDR Engine v2.5 English documentation. Each module keeps its own documented role, designer controls, script count and script-level information instead of being compressed into five summary categories.</p>
+<p><b>Recommended setup:</b> Import the MDR Engine v2.5 folder into Assets → create an empty GameObject with <code>MDR_SystemBootstrap</code> → vehicle with Rigidbody, WheelColliders and <code>MDRCarPhysicsCore</code> → optionally add <code>PipelineManager</code> → Play. F3 opens Diagnostics.</p>
+<p data-i18n="engine_tech">The v2.5 documentation lists 164 MDR Engine scripts and recommends MDR_SystemBootstrap, MDRCarPhysicsCore, optional PipelineManager, and SurfaceSync/Bootstrap integration with MDR Road.</p>
+</div>
+<div class="engine-module-grid">
+<article class="engine-module">
+  <img src="../../assets/icons/AI.jpg" alt="AI module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 01</div>
+    <h2>AI</h2>
+    <p class="engine-role">Multi-layer decision core, driver personality and traffic bridge</p>
+    <div class="engine-meta"><span>Scripts: 11</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Tune Instinct / Tactical / Strategic / Personality layers; decision strength; link to vehicle physics</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (11)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_AdaptiveDrivingBias.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_HumanDriverPersonality.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_MultiLayerDecisionCore.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_AIPersonalityController.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_AIPersonalityProfile.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PersonalityFactory.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PersonalityToDecisionBridge.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PoliceAI.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_AILightBehavior.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_AIPhysicsDriver.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_TrafficRules.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/AI_City.jpg" alt="AI_City module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 02</div>
+    <h2>AI_City</h2>
+    <p class="engine-role">City AI, pedestrians, routes and city traffic manager</p>
+    <div class="engine-meta"><span>Scripts: 8</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> City traffic spawn, pedestrian routes, density and city collision reports</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (8)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_CityAIBrain.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_CityCollisionReport.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_CityRouteSystem.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_CityTrafficManager.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_Pedestrian.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_RepairStation.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_SpeedLimitZone.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_TrafficRoadAdapter.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/AI_DecisionCore.jpg" alt="AI_DecisionCore_v2.5 module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 03</div>
+    <h2>AI_DecisionCore_v2.5</h2>
+    <p class="engine-role">Dedicated multi-layer decision core package</p>
+    <div class="engine-meta"><span>Scripts: 3</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Dedicated decision-core tuning</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (3)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_AdaptiveDrivingBias.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_HumanDriverPersonality.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_MultiLayerDecisionCore.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/AI_Police.jpg" alt="AI_Police module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 04</div>
+    <h2>AI_Police</h2>
+    <p class="engine-role">Police pursuit, arrest, wanted level and unit coordination</p>
+    <div class="engine-meta"><span>Scripts: 13</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Police unit count, detection radius, Wanted level, roadblocks</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (13)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDRPoliceState.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_CollisionAnalyzer.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_CrimeDetector.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PoliceAggressionSystem.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PoliceArrest.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PoliceBrain.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PoliceCommunication.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PoliceCoordinator.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PoliceCore.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PoliceDetectionRange.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PoliceDispatcher.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PoliceUnit.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_WantedSystem.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/AI_Road.jpg" alt="AI_Road module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 05</div>
+    <h2>AI_Road</h2>
+    <p class="engine-role">Road graph, pathfinding and on-road driving behaviour</p>
+    <div class="engine-meta"><span>Scripts: 7</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Build road node graph for AI and predictive pathing</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (7)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDRDrivingBehavior.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_NodeVisualizer.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_Pathfinder.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_RoadNode.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_RoadPattern.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_RoadSegment.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_RoadSystemManager.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Audio.jpg" alt="Audio module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 06</div>
+    <h2>Audio</h2>
+    <p class="engine-role">Engine and effect audio management</p>
+    <div class="engine-meta"><span>Scripts: 1</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Bus routing and engine/FX volumes</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (1)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_AudioManager.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Camera.jpg" alt="Camera module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 07</div>
+    <h2>Camera</h2>
+    <p class="engine-role">Vehicle chase / cinematic camera</p>
+    <div class="engine-meta"><span>Scripts: 1</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Chase distance, FOV, lag</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (1)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_CameraController.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Character.jpg" alt="Character module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 08</div>
+    <h2>Character</h2>
+    <p class="engine-role">On-foot character and vehicle enter/exit</p>
+    <div class="engine-meta"><span>Scripts: 2</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Enter/exit triggers and animation hooks</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (2)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_CharacterController.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_VehicleEnterExit.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Core.jpg" alt="Core module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 09</div>
+    <h2>Core</h2>
+    <p class="engine-role">Vehicle physics core, input and main controller</p>
+    <div class="engine-meta"><span>Scripts: 8</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Engine power, input mapping, apply settings to physics core</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (8)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>CarInput.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarController.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarInput.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarPhysicsCore.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarPhysicsDriver.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarSettings.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRClutch.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_Bootstrap.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Data.jpg" alt="Data module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 10</div>
+    <h2>Data</h2>
+    <p class="engine-role">Vehicle data and settings containers</p>
+    <div class="engine-meta"><span>Scripts: 1</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Scriptable vehicle stats</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (1)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_VehicleData.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Destruction.jpg" alt="Destruction module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 11</div>
+    <h2>Destruction</h2>
+    <p class="engine-role">Multi-layer deformation, material damage and repair</p>
+    <div class="engine-meta"><span>Scripts: 4</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Soft / Hard / Ultra intensity, material profiles, repair duration</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (4)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_AdvancedDamageController.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_DamageMaterialProfile.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_MultiLayerDeformation.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_RepairStation.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Graphics.jpg" alt="Graphics module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 12</div>
+    <h2>Graphics</h2>
+    <p class="engine-role">URP / HDRP / Built-in compatibility helpers</p>
+    <div class="engine-meta"><span>Scripts: 1</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Pipeline detection for materials</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (1)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_GraphicsCompatibility.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Integration_Bridge.jpg" alt="Integration_Bridge module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 13</div>
+    <h2>Integration_Bridge</h2>
+    <p class="engine-role">Engine–Road bridge, bootstrap and adapters</p>
+    <div class="engine-meta"><span>Scripts: 6</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Auto-wire vehicles and sync road surface to physics</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (6)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_ControlSystemsAdapter.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_DamageUnifier.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_DecisionCoreAdapter.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_DeformationAdapter.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_SurfaceSync.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_SystemBootstrap.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/MDR_AICore.jpg" alt="MDR_AICore module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 14</div>
+    <h2>MDR_AICore</h2>
+    <p class="engine-role">High-level AI module suite</p>
+    <div class="engine-meta"><span>Scripts: 32</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> High-level AI orchestration modules</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (32)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>AIHornReaction.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>CityDensityModule.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>CityTrafficAdapter.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>DrivingModeManager.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>DrivingUpdateOrder.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarAICore.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarControllerAdapter.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarSafetyModule.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDensityReaction.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDrivingBehavior.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDrivingBehaviorCore.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDrivingLaneDecision.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDrivingLaneModule.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDrivingOvertakeModule.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDrivingTrafficModule.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDREmergencyDrivingMode.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRLightController.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRLightInput.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRLightState.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRPathEventHandler.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRPoliceCoordinator.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRPoliceDrivingModule.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRPoliceVision.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRRoadNodeAdapter.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRRoadSegmentAdapter.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRRoadTypeBehavior.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRSpeedLimitController.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_TrafficLightAdapter.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MasterDrivingPipeline.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>RoundaboutAdapter.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>RoundaboutGroup.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>RoundaboutLane.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Managers.jpg" alt="Managers module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 15</div>
+    <h2>Managers</h2>
+    <p class="engine-role">Global EventBus and GameManager</p>
+    <div class="engine-meta"><span>Scripts: 2</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Global events and game state</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (2)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_EventBus.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_GameManager.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Physics.jpg" alt="Physics module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 16</div>
+    <h2>Physics</h2>
+    <p class="engine-role">TC / ESC / ABS electronic control systems</p>
+    <div class="engine-meta"><span>Scripts: 3</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> TC slip threshold, ESC strength, ABS pulse rate</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (3)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_ABS.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_ESC.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_TractionControl.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Physics_ControlSystems.jpg" alt="Physics_ControlSystems_v2.5 module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 17</div>
+    <h2>Physics_ControlSystems_v2.5</h2>
+    <p class="engine-role">Electronic control systems v2.5 package</p>
+    <div class="engine-meta"><span>Scripts: 3</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Same control-system tuning as Physics (v2.5 copies)</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (3)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_ABS.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_ESC.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_TractionControl.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Pipeline.jpg" alt="Pipeline module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 18</div>
+    <h2>Pipeline</h2>
+    <p class="engine-role">Performance switchboard and feature tiers</p>
+    <div class="engine-meta"><span>Scripts: 3</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Mobile / Balanced / HighEnd tier; disable heavy modules</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (3)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_Diagnostics.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PipelineManager.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PipelineQuery.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Player.jpg" alt="Player module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 19</div>
+    <h2>Player</h2>
+    <p class="engine-role">Player input, gearbox, lights, crime and reactions</p>
+    <div class="engine-meta"><span>Scripts: 19</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Cross-platform input map, automatic gearbox, lights/indicators, crime</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (19)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>AIPlayerReaction.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>CrimeDetector.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_AutomaticGearbox.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_CrossPlatformInput.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_VehicleLightController.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_InputReader.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PlayerController.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PlayerCollisionHandler.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PlayerCrimeDetector.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PlayerDrivingAdapter.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PlayerEscapeLogic.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PlayerHornInput.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PlayerLightController.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PlayerLightInput.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PlayerPresenceDetector.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PlayerPresenceSystem.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PlayerPresenceUnified.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PlayerWantedLevel.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>PoliceResponseSystem.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Pooling.jpg" alt="Pooling module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 20</div>
+    <h2>Pooling</h2>
+    <p class="engine-role">Object pooling to reduce GC</p>
+    <div class="engine-meta"><span>Scripts: 1</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Register prefabs and prewarm counts</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (1)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_ObjectPool.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Powertrain.jpg" alt="Powertrain module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 21</div>
+    <h2>Powertrain</h2>
+    <p class="engine-role">Engine, clutch, gearbox, differential</p>
+    <div class="engine-meta"><span>Scripts: 5</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Torque curve, gear ratios, differential</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (5)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_Clutch.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_Differential.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_EngineSimulator.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_Gearbox.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_PowertrainController.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Racing.jpg" alt="Racing module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 22</div>
+    <h2>Racing</h2>
+    <p class="engine-role">Race manager, tracks and racing AI</p>
+    <div class="engine-meta"><span>Scripts: 4</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Define tracks, race rules, opponent AI</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (4)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_PoliceTrackExclusion.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_RaceManager.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_RaceTrack.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_RacingAI.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Replay.jpg" alt="Replay module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 23</div>
+    <h2>Replay</h2>
+    <p class="engine-role">Driving replay record / playback</p>
+    <div class="engine-meta"><span>Scripts: 1</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Buffer length and playback speed</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (1)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_ReplaySystem.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Sensors.jpg" alt="Sensors module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 24</div>
+    <h2>Sensors</h2>
+    <p class="engine-role">Vehicle AI sensors</p>
+    <div class="engine-meta"><span>Scripts: 2</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Ray length, layer masks</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (2)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>CarAI.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarSensors_Pro.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Shared.jpg" alt="Shared module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 25</div>
+    <h2>Shared</h2>
+    <p class="engine-role">Shared utilities and interfaces</p>
+    <div class="engine-meta"><span>Scripts: 3</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Utility helpers (no scene placement required)</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (3)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>Extensions.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>IMDRPathProvider.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>Utils.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Telemetry.jpg" alt="Telemetry module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 26</div>
+    <h2>Telemetry</h2>
+    <p class="engine-role">Telemetry data for HUD / debug</p>
+    <div class="engine-meta"><span>Scripts: 1</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Bind to HUD / logger</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (1)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_TelemetryData.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Tires.jpg" alt="Tires module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 27</div>
+    <h2>Tires</h2>
+    <p class="engine-role">Pacejka-style tire model</p>
+    <div class="engine-meta"><span>Scripts: 1</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Pacejka coefficients per axle</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (1)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_PacejkaTire.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Traffic.jpg" alt="Traffic module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 28</div>
+    <h2>Traffic</h2>
+    <p class="engine-role">Traffic light props</p>
+    <div class="engine-meta"><span>Scripts: 1</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Light timing and phases</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (1)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_TrafficLight.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/UI.jpg" alt="UI module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 29</div>
+    <h2>UI</h2>
+    <p class="engine-role">HUD / UI manager</p>
+    <div class="engine-meta"><span>Scripts: 1</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Speed/gear/wanted widgets</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (1)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDR_UIManager.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/Vehicle.jpg" alt="Vehicle module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 30</div>
+    <h2>Vehicle</h2>
+    <p class="engine-role">Vehicle-side audio, camera, collision and damage FX</p>
+    <div class="engine-meta"><span>Scripts: 10</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Camera shake, engine sound, damage FX intensity</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (10)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>MDRCameraShake.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarAudio.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarCamera.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarCollision.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarDamage.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCarEngineSound.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDamageFX.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDamageManager.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDamageMaterialProfile.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDamageObject.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article><article class="engine-module">
+  <img src="../../assets/icons/World.jpg" alt="World module icon" loading="lazy">
+  <div class="engine-module-content">
+    <div class="engine-module-number">ENGINE MODULE 31</div>
+    <h2>World</h2>
+    <p class="engine-role">Day/night, city lights and graphics mode</p>
+    <div class="engine-meta"><span>Scripts: 6</span></div>
+    <p class="engine-controls"><b>Designer controls:</b> Day/night cycle speed, city light intensity</p>
+    <details class="engine-scripts">
+      <summary>View documented scripts (6)</summary>
+      <div class="engine-script-list"><details class="engine-script"><summary>CloudControllerAdvanced.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRCityLights.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDRDayNightSystem.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>MDR_GraphicsModeManager.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>RenderPipelineMode.cs</summary><div class="engine-script-body"></div></details><details class="engine-script"><summary>WorldTimePeriod.cs</summary><div class="engine-script-body"></div></details></div>
+    </details>
+  </div>
+</article>
+</div>
+<div class="engine-promo">
+<img src="../../assets/images/Engine.jpg" alt="MDR Engine Pro full package image">
+<div class="engine-promo-caption" data-i18n="engine_promo_caption">MDR Engine Pro — full package overview image</div>
+</div>
+<div class="engine-ending">
+<img src="../../assets/icons/icon.webp" alt="ModWorksInteractive MWi">
+<h2 data-i18n="package_ending_title">ModWorksInteractive × MDR Engine</h2>
+<p data-i18n="engine_ending_text">Build it. Tune it. Drive it.</p>
+</div>
+</div></div>
+<script src="../../assets/js/i18n.js?v=7"></script>
+</body>
+</html>
